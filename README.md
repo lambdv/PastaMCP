@@ -1,6 +1,10 @@
 # PastaMCP
 
-give chatbots context about your project.
+stop copy and pasting context into web chatbot. 
+
+an mcp server to give read tools about your codebase to chatbots through a cloudflare tunnel
+
+now chatgpt can read your spaghetti code. 
 
 ![PastaMCP Screenshot](diagram.png)
 ![PastaMCP Screenshot](proof.png)
