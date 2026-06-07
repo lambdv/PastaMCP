@@ -3,6 +3,7 @@
 give chatbots context about your project.
 
 ![PastaMCP Screenshot](Screenshot%202026-06-07%20164844.png)
+![PastaMCP Screenshot](proof.png)
 
 ## dependenices
 - cloudflared

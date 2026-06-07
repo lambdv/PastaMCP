@@ -16,4 +16,4 @@ services:
       - no-new-privileges:true
     environment:
       - PASTALESS_CONFIG=/app/config.toml
-      - PASTALESS_ALLOWED_HOSTS=${PASTALESS_ALLOWED_HOSTS:-localhost,127.0.0.1,::1}
+      - PASTALESS_ALLOWED_HOSTS=${PASTALESS_ALLOWED_HOSTS:-localhost,127.0.0.1,::1,ross-pride-pull-parameters.trycloudflare.com}
