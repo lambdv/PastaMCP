@@ -1,0 +1,5 @@
+[projects.game]
+root = "/workspace/game"
+
+[projects.blog]
+root = "/workspace/blog"

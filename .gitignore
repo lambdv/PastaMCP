@@ -1,0 +1,5 @@
+target/
+.git/
+test_fixtures/
+*.local
+.env

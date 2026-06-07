@@ -1,0 +1,19 @@
+services:
+  mcp:
+    build: .
+    ports:
+      - "127.0.0.1:6967:6967"
+    volumes:
+      - ./config.toml:/app/config.toml:ro
+      - ./test_fixtures/game:/workspace/game:ro
+      - ./test_fixtures/blog:/workspace/blog:ro
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      - CHATDEX_CONFIG=/app/config.toml
+      - CHATDEX_ALLOWED_HOSTS=${CHATDEX_ALLOWED_HOSTS:-localhost,127.0.0.1,::1}
