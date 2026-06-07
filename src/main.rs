@@ -45,7 +45,7 @@ fn load_config(path: &Path) -> Result<Config> {
 }
 
 fn load_allowed_hosts() -> Vec<String> {
-    std::env::var("CHATDEX_ALLOWED_HOSTS")
+    std::env::var("PASTALESS_ALLOWED_HOSTS")
         .ok()
         .map(|value| {
             value
@@ -156,12 +156,12 @@ struct GrepResponse {
 
 #[derive(Clone)]
 #[allow(dead_code)]
-struct ChatDex {
+struct Pastaless {
     tool_router: ToolRouter<Self>,
     projects: HashMap<String, ProjectConfig>,
 }
 
-impl ChatDex {
+impl Pastaless {
     fn new(projects: HashMap<String, ProjectConfig>) -> Self {
         Self {
             tool_router: Self::tool_router(),
@@ -323,7 +323,7 @@ impl ChatDex {
 }
 
 #[tool_router]
-impl ChatDex {
+impl Pastaless {
     #[tool(description = "List all available project keys")]
     fn list_projects(&self) -> Result<Json<ProjectListResponse>, String> {
         let mut projects: Vec<String> = self.projects.keys().cloned().collect();
@@ -503,8 +503,8 @@ impl ChatDex {
     }
 }
 
-#[tool_handler(name = "chatdex", version = "0.1.0", instructions = "Read-only access to codebase projects. Use list_projects to discover valid project keys.")]
-impl ServerHandler for ChatDex {}
+#[tool_handler(name = "pastaless", version = "0.1.0", instructions = "Read-only access to codebase projects. Use list_projects to discover valid project keys.")]
+impl ServerHandler for Pastaless {}
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
@@ -516,7 +516,7 @@ async fn main() -> anyhow::Result<()> {
         .with(tracing_subscriber::fmt::layer())
         .init();
 
-    let config_path = std::env::var("CHATDEX_CONFIG")
+    let config_path = std::env::var("PASTALESS_CONFIG")
         .unwrap_or_else(|_| "/app/config.toml".to_string());
 
     let config = load_config(Path::new(&config_path))?;
@@ -527,14 +527,14 @@ async fn main() -> anyhow::Result<()> {
     }
     tracing::info!("allowed hosts: {}", allowed_hosts.join(", "));
 
-    let chatdex = ChatDex::new(config.projects);
+    let pastaless = Pastaless::new(config.projects);
 
     let mcp_config = StreamableHttpServerConfig::default()
         .with_stateful_mode(true)
         .with_allowed_hosts(allowed_hosts);
 
     let service = StreamableHttpService::new(
-        move || Ok(chatdex.clone()),
+        move || Ok(pastaless.clone()),
         std::sync::Arc::new(LocalSessionManager::default()),
         mcp_config,
     );
@@ -544,7 +544,7 @@ async fn main() -> anyhow::Result<()> {
         .nest_service("/mcp", service);
 
     let listener = tokio::net::TcpListener::bind("0.0.0.0:6967").await?;
-    tracing::info!("chatdex MCP server listening on 0.0.0.0:6967");
+    tracing::info!("pastaless MCP server listening on 0.0.0.0:6967");
 
     axum::serve(listener, app)
         .with_graceful_shutdown(async {

@@ -8,6 +8,6 @@ RUN touch src/main.rs && cargo build --release
 
 FROM debian:trixie-slim
 RUN apt-get update && apt-get install -y ripgrep && rm -rf /var/lib/apt/lists/*
-COPY --from=builder /app/target/release/chatdex-mcp /usr/local/bin/
+COPY --from=builder /app/target/release/pastaless-mcp /usr/local/bin/
 EXPOSE 6967
-CMD ["chatdex-mcp"]
+CMD ["pastaless-mcp"]

@@ -1,8 +1,8 @@
-# ChatdexMCP
+# PastaMCP
 
 give chatbots context about your project.
 
-![ChatdexMCP Screenshot](Screenshot%202026-06-07%20164844.png)
+![PastaMCP Screenshot](Screenshot%202026-06-07%20164844.png)
 
 ## dependenices
 - cloudflared

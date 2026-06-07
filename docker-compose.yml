@@ -15,5 +15,5 @@ services:
     security_opt:
       - no-new-privileges:true
     environment:
-      - CHATDEX_CONFIG=/app/config.toml
-      - CHATDEX_ALLOWED_HOSTS=${CHATDEX_ALLOWED_HOSTS:-localhost,127.0.0.1,::1}
+      - PASTALESS_CONFIG=/app/config.toml
+      - PASTALESS_ALLOWED_HOSTS=${PASTALESS_ALLOWED_HOSTS:-localhost,127.0.0.1,::1}
